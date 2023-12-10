@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    #taskInput {
+      width: 70%;
+      padding: 10px;
+      margin-right: 10px;
+    }
+
+    #addTaskBtn {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    #taskList {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .taskItem {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .taskText {
+      flex-grow: 1;
+    }
+
+    .completeBtn, .deleteBtn {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .complete {
+      text-decoration: line-through;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>To-Do List</h1>
+
+  <div>
+    <input type="text" id="taskInput" placeholder="Add a new task">
+    <button id="addTaskBtn" onclick="addTask()">Add Task</button>
+  </div>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById('taskInput');
+      const taskList = document.getElementById('taskList');
+
+      if (taskInput.value.trim() !== '') {
+        const taskItem = document.createElement('li');
+        taskItem.classList.add('taskItem');
+
+        const taskText = document.createElement('span');
+        taskText.classList.add('taskText');
+        taskText.textContent = taskInput.value;
+
+        const completeBtn = document.createElement('span');
+        completeBtn.classList.add('completeBtn');
+        completeBtn.textContent = 'Complete';
+        completeBtn.onclick = function() {
+          taskText.classList.toggle('complete');
+        };
+
+        const deleteBtn = document.createElement('span');
+        deleteBtn.classList.add('deleteBtn');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = function() {
+          taskItem.remove();
+        };
+
+        taskItem.appendChild(taskText);
+        taskItem.appendChild(completeBtn);
+        taskItem.appendChild(deleteBtn);
+
+        taskList.appendChild(taskItem);
+
+        taskInput.value = '';
+      }
+    }
+  </script>
+
+</body>
+</html>
